@@ -4,20 +4,29 @@ import dashboard.entity.Employee;
 import dashboard.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @Controller
-//@RequestMapping(path = "/home")
 public class EmployeeController {
 
     @Autowired
     private EmployeeService employeeService;
 
-    @PostMapping(path = "/addEmployee")
-    public void addEmployee(@RequestBody Employee employee) {
-        employeeService.addEmployee(employee);
+    @GetMapping(path = "/home")
+    public String home() {
+        return "home";
+    }
+
+    @GetMapping(path = "/employeeRegister")
+    public String employeeRegister() {
+        return "employeeRegister";
+    }
+
+    @PostMapping(path = "/saveEmployee")
+    public String saveEmployee(@ModelAttribute Employee employee) {
+        employeeService.saveEmployee(employee);
+        return "home";
     }
 }

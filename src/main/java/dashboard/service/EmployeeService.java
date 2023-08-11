@@ -11,7 +11,7 @@ public class EmployeeService {
     @Autowired
     private IEmployeeRepository employeeRepository;
 
-    public void addEmployee(Employee employee) {
+    public void saveEmployee(Employee employee) {
         employeeRepository.save(employee);
     }
 }
