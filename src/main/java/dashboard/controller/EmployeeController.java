@@ -7,6 +7,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import java.util.List;
 
 @Controller
 public class EmployeeController {
@@ -28,5 +31,11 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute Employee employee) {
         employeeService.saveEmployee(employee);
         return "home";
+    }
+
+    @GetMapping(path = "/employeeTable")
+    public ModelAndView employeeTable() {
+        List<Employee> employeeList= employeeService.findAllEmployee();
+        return new ModelAndView("employeeTable", "employee", employeeList);
     }
 }
