@@ -6,6 +6,23 @@
         <title>ATMOS</title>
 
         <style>
+            body {
+                margin: 0;
+                background: linear-gradient(45deg, #a6f099, #17b324);
+                font-family: sans-serif;
+                font-weight: 100;
+            }
+
+            #logo {
+                width: 500px;
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                margin-top: 75px;
+                border: 10px solid #000;
+                border-radius: 10px;
+            }
+
             * {
                 box-sizing: border-box;
             }
@@ -40,23 +57,23 @@
             .logo a,
             .main-nav a {
                 padding: 10px 15px;
-                color: #704916;
+                color: #a50f0f;
                 text-align: center;
                 display: block;
             }
 
             .main-nav a {
-                color: #704916;
+                color: #a50f0f;
                 font-size: 22px;
                 font-weight: bold;
             }
 
             .logo a:hover {
-                color: #b89567;
+                color: #196115;
             }
 
             .main-nav a:hover {
-                color: #b89567;
+                color: #196115;
             }
 
             img {
@@ -104,11 +121,9 @@
         </style>
     </head>
     <body>
-        <!-----------------------------------------------------------------------Navbar----------------------------------------------------------------------------->
-        <!-----------------------------------------------------------------------Navbar----------------------------------------------------------------------------->
-        <!-----------------------------------------------------------------------Navbar----------------------------------------------------------------------------->
+        <!-----------------------------------------------Navbar----------------------------------------------------------------------------->
         <header class="header">
-            <h1 class="logo"><a href="home">ATMOS Elektron Kitabxana</a></h1>
+            <h1 class="logo"><a href="home">ATMOS Company</a></h1>
             <ul class="main-nav">
                 <li><img src="/images/AtmosLogo.png" alt="Atmos Logo"></li>
                 <li><a href="home">Ana Səhifə</a></li>
@@ -117,5 +132,7 @@
                 <li><a href="employeeRegister">İşçi Qeydiyyatı</a></li>
             </ul>
         </header>
+        <!------------------------------------------------Main----------------------------------------------------------------------------->
+        <img id="logo" src="/images/AtmosLogo.png" alt="Atmos Logo">
     </body>
 </html>

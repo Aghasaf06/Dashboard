@@ -30,7 +30,7 @@ public class EmployeeController {
     @PostMapping(path = "/saveEmployee")
     public String saveEmployee(@ModelAttribute Employee employee) {
         employeeService.saveEmployee(employee);
-        return "home";
+        return "redirect:/employeeTable";
     }
 
     @GetMapping(path = "/employeeTable")
