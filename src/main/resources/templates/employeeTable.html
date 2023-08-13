@@ -11,7 +11,7 @@
 
         body {
             margin: 0;
-            background: linear-gradient(45deg, #70e65b, #094e0f);
+            background: linear-gradient(45deg, #a6f099, #17b324);
             font-family: sans-serif;
             font-weight: 100;
         }
@@ -37,10 +37,15 @@
 
         th,
         td {
+            border: 2px solid #15a03f;
             padding: 15px;
             background-color: rgba(255,255,255,0.2);
             color: #000;
             text-align: center;
+        }
+
+        th {
+            cursor: pointer;
         }
 
         #delete {
@@ -53,99 +58,99 @@
 
         * {
                 box-sizing: border-box;
-                }
+            }
 
-                body {
-                    line-height: 1.6;
-                    margin: 0;
-                    min-height: 100vh;
-                }
+            body {
+                line-height: 1.6;
+                margin: 0;
+                min-height: 100vh;
+            }
 
-                ul {
-                margin-bottom: 0;
-                padding: 0;
-                list-style: none;
-                }
+            ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            }
 
-                a {
-                    text-decoration: none;
-                }
+            a {
+                text-decoration: none;
+            }
 
-                .logo {
-                    margin: 0;
-                    font-size: 1.45em;
-                    color: #704916;
-                }
+            .logo {
+                margin: 0;
+                font-size: 1.45em;
+                color: #704916;
+            }
 
+            .main-nav {
+                margin-top: 5px;
+
+            }
+            
+            .logo a,
+            .main-nav a {
+                padding: 10px 15px;
+                color: #a50f0f;
+                text-align: center;
+                display: block;
+            }
+
+            .main-nav a {
+                color: #a50f0f;
+                font-size: 22px;
+                font-weight: bold;
+            }
+
+            .logo a:hover {
+                color: #196115;
+            }
+
+            .main-nav a:hover {
+                color: #196115;
+            }
+
+            img {
+                width: 50px;
+            }
+
+            .header {
+                padding-top: .5em;
+                padding-bottom: .5em;
+                border: 1px solid #fff;
+                background-color: #fff;
+                -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+                -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+                box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
+                -webkit-border-radius: 5px;
+                -moz-border-radius: 5px;
+                border-radius: 5px;
+            }
+
+            @media (min-width: 769px) {
+                .header,
                 .main-nav {
-                    margin-top: 5px;
-
-                }
-                
-                .logo a,
-                .main-nav a {
-                    padding: 10px 15px;
-                    color: #704916;
-                    text-align: center;
-                    display: block;
-                }
-
-                .main-nav a {
-                    color: #704916;
-                    font-size: 22px;
-                    font-weight: bold;
-                }
-
-                .logo a:hover {
-                    color: #b89567;
-                }
-
-                .main-nav a:hover {
-                    color: #b89567;
-                }
-
-                img {
-                    width: 50px;
+                    display: flex;
                 }
 
                 .header {
-                    padding-top: .5em;
-                    padding-bottom: .5em;
-                    border: 1px solid #fff;
-                    background-color: #fff;
-                    -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-                    -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-                    box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-                    -webkit-border-radius: 5px;
-                    -moz-border-radius: 5px;
-                    border-radius: 5px;
+                    flex-direction: column;
+                    align-items: center;
+                    .header{
+                    width: 80%;
+                    margin: 0 auto;
+                    max-width: 1150px;
+                }
                 }
 
-                @media (min-width: 769px) {
-                    .header,
-                    .main-nav {
-                        display: flex;
-                    }
+            }
 
-                    .header {
-                        flex-direction: column;
-                        align-items: center;
-                        .header{
-                        width: 80%;
-                        margin: 0 auto;
-                        max-width: 1150px;
-                    }
-                    }
-
+            @media (min-width: 1025px) {
+                .header {
+                    flex-direction: row;
+                    justify-content: space-between;
                 }
 
-                @media (min-width: 1025px) {
-                    .header {
-                        flex-direction: row;
-                        justify-content: space-between;
-                    }
-
-                }
+            }
         </style>
     </head>
     <body>
@@ -166,7 +171,7 @@
         <!-----------------------------------------------------------------------Table----------------------------------------------------------------------------->
         <!-----------------------------------------------------------------------Table----------------------------------------------------------------------------->
         <div id="table" class="container my-5 col-md-6">
-            <table class="table  table-striped table-hover">
+            <table class="table table-striped table-hover sortable-table">
                 <thead>
                     <tr>
                         <th scope="col">Ad</th>
@@ -181,17 +186,20 @@
                 </thead>
                 <tbody>
                     <tr th:each="b :${employee}">
-                        <td th:text="${b.name}"></td>
-                        <td th:text="${b.surname}"></td>
-                        <td th:text="${b.email}"></td>
-                        <td th:text="${b.gender}"></td>
-                        <td th:text="${b.age}"></td>
-                        <td th:text="${b.university}"></td>
-                        <td th:text="${b.department}"></td>
-                        <td th:text="${b.country}"></td>
+                        <td th:text="${b.name}">a</td>
+                        <td th:text="${b.surname}">a</td>
+                        <td th:text="${b.email}">a</td>
+                        <td th:text="${b.gender}">a</td>
+                        <td th:text="${b.age}">a</td>
+                        <td th:text="${b.university}">a</td>
+                        <td th:text="${b.department}">a</td>
+                        <td th:text="${b.country}">a</td>
                     </tr>
                 </tbody>
             </table>
         </div>
+        <script>
+            !function(){function t(t,e){for(;(t=t.parentElement)&&!t.classList.contains(e););return t}function e(t){return t=t.replace(/[^\d\.-]/g,""),Number(t)}function n(t){var e=document.createElement("span");return e.innerHTML=t,e.textContent||e.innerText}function r(t,e,n){for(var r=0;r<n.length;r++)r==e?n[e].setAttribute("data-sort-direction",t):n[r].setAttribute("data-sort-direction",0)}function a(t,e){for(var n=t.getElementsByTagName("tbody")[0].getElementsByTagName("tr"),r=0;r<n.length;r++)for(var a=n[r].getElementsByTagName("td"),i=0;i<a.length;i++)a[i].innerHTML=e[r][i]}window.addEventListener("load",function(){for(var i=document.getElementsByClassName("sortable-table"),o=[],s=0;s<i.length;s++)!function(){i[s].setAttribute("data-sort-index",s);for(var d=i[s].getElementsByTagName("tbody")[0].getElementsByTagName("tr"),l=0;l<d.length;l++)for(var g=d[l].getElementsByTagName("td"),c=0;c<g.length;c++)void 0===o[s]&&o.splice(s,0,[]),void 0===o[s][l]&&o[s].splice(l,0,[]),o[s][l].splice(c,0,g[c].innerHTML);for(var u=i[s].getElementsByTagName("thead")[0].getElementsByTagName("tr")[0].getElementsByTagName("th"),m=0;m<u.length;m++)!function(){var s=u[m].classList.contains("numeric-sort");u[m].setAttribute("data-sort-direction",0),u[m].setAttribute("data-sort-index",m),u[m].addEventListener("click",function(){var d=this.getAttribute("data-sort-direction"),l=this.getAttribute("data-sort-index"),g=t(this,"sortable-table").getAttribute("data-sort-index");r(1==d?-1:1,l,u),o[g]=o[g].sort(function(t,r){var a=n(t[l]),i=n(r[l]);return s&&(a=e(a),i=e(i)),a===i?0:1==d?a>i?-1:1:a<i?-1:1}),a(i[g],o[g])})}()}()})}();
+        </script>
     </body>
 </html>

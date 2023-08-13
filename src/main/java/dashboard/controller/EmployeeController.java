@@ -30,12 +30,12 @@ public class EmployeeController {
     @PostMapping(path = "/saveEmployee")
     public String saveEmployee(@ModelAttribute Employee employee) {
         employeeService.saveEmployee(employee);
-        return "redirect:/employeeTable";
+        return "submit";
     }
 
     @GetMapping(path = "/employeeTable")
     public ModelAndView employeeTable() {
-        List<Employee> employeeList= employeeService.findAllEmployee();
+        List<Employee> employeeList = employeeService.findAllEmployeeASC();
         return new ModelAndView("employeeTable", "employee", employeeList);
     }
 }
