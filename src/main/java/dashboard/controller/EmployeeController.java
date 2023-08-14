@@ -35,7 +35,7 @@ public class EmployeeController {
 
     @GetMapping(path = "/employeeTable")
     public ModelAndView employeeTable() {
-        List<Employee> employeeList = employeeService.findAllEmployeeASC();
+        List<Employee> employeeList = employeeService.getEmployeeByGenderOrDepartmentOrUniversityOrCountry();
         return new ModelAndView("employeeTable", "employee", employeeList);
     }
 }

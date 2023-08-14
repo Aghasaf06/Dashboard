@@ -3,7 +3,6 @@ package dashboard.service;
 import dashboard.entity.Employee;
 import dashboard.repository.IEmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,11 +21,8 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public List<Employee> findAllEmployeeASC() {
-        Sort sort;
-
-        sort = Sort.by(Sort.Direction.ASC, "name");
-
-        return employeeRepository.findAll(sort);
+    public List<Employee> getEmployeeByGenderOrDepartmentOrUniversityOrCountry() {
+        return employeeRepository.getByGenderOrDepartmentOrUniversityOrCountry("", "", "", "Azerbaijan");
     }
+
 }
