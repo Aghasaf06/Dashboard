@@ -255,8 +255,9 @@
             .form-all {
             background-image: none;
             }
-        .form-all:before { content: none; } .form-all { margin-top: 72px; }/*PREFERENCES STYLE*//*__INSPECT_SEPERATOR__*/
-        .form-label.form-label-auto {
+        
+            .form-all:before { content: none; } .form-all { margin-top: 72px; }/*PREFERENCES STYLE*//*__INSPECT_SEPERATOR__*/
+            .form-label.form-label-auto {   
                 
             display: block;
             float: none;
@@ -265,6 +266,24 @@
             
             }
             /* Injected CSS Code */
+
+
+
+
+            .button {
+                background-color: #ffffff;
+                border: none;
+                color: #196115;
+                padding: 15px 32px;
+                text-align: center;
+                font-weight: bold;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 10px;
+                }
         </style>
     </head>
     <body>
@@ -473,6 +492,7 @@
                 </div>
             </form>
         </div>
+        <a href="employeeTable" class="button">Filterləri və axtarışı təmizlə</a>
         <!-----------------------------------------------------------------------Table----------------------------------------------------------------------------->
         <!-----------------------------------------------------------------------Table----------------------------------------------------------------------------->
         <!-----------------------------------------------------------------------Table----------------------------------------------------------------------------->
@@ -492,6 +512,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="b :${employee}">
+                        <td><script> var i = 1; document.getElementById("demo").innerHTML = i++;</script></td>
                         <td th:text="${b.name}"></td>
                         <td th:text="${b.surname}"></td>
                         <td th:text="${b.email}"></td>

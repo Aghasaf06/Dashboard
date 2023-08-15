@@ -30,7 +30,13 @@ public class EmployeeService {
 
     public void filterTable(Employee employee) {
         filterList.clear();
-        setFilterList(employeeRepository.getFilteredTable(employee.getGender(), employee.getUniversity(), employee.getDepartment(), employee.getCountry()));
+        if(employee.getGender().equals("Other")) {
+            setFilterList(employeeRepository.getFilteredTable(employee.getUniversity(), employee.getDepartment(), employee.getCountry()));
+        } else if (employee.getGender().isEmpty() && employee.getUniversity().isEmpty() && employee.getDepartment().isEmpty() && employee.getCountry().isEmpty()) {
+            setFilterList(employeeRepository.findAll());
+        } else {
+            setFilterList(employeeRepository.getFilteredTable(employee.getGender(), employee.getUniversity(), employee.getDepartment(), employee.getCountry()));
+        }
     }
 
     @Getter
@@ -48,4 +54,17 @@ public class EmployeeService {
         }
     }
 
+    public int[] getGenderStats() {
+        int male, female, other, all;
+
+        all = employeeRepository.findAll().size();
+        male = employeeRepository.findByGender("Male").size();
+        female = employeeRepository.findByGender("Female").size();
+
+        male = male * 100 / all;
+        female = female * 100 / all;
+        other = 100 - male - female;
+
+        return new int[]{male, female, other};
+    }
 }

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Combined Pie Chart Example</title>
+        <script src="https://d3js.org/d3.v5.min.js"></script>
+        <style>
+            svg {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <svg id="pieChart"></svg>
+        <script>
+            const male = [[${Male}]];
+            const female = [[${Female}]];
+            const other = [[${Other}]]
+            const data = [male, female, other]; // Oranlar yüzde cinsinden
+            const width = 300;
+            const height = 300;
+            const radius = Math.min(width, height) / 2;
+            const color = d3.scaleOrdinal(d3.schemeCategory10);
+            const pie = d3.pie().value(d => d);
+            const arc = d3.arc().outerRadius(radius - 10).innerRadius(0);
+            const svg = d3.select("#pieChart")
+                .attr("width", width)
+                .attr("height", height)
+                .append("g")
+                .attr("transform", `translate(${width / 2},${height / 2})`);
+
+            const g = svg.selectAll(".arc")
+                .data(pie(data))
+                .enter().append("g")
+                .attr("class", "arc")
+                .on("mouseover", function(d) {
+                d3.select(this).select("path")
+                    .transition().duration(200)
+                    .attr("d", arc.outerRadius(radius));
+                })
+                .on("mouseout", function(d) {
+                d3.select(this).select("path")
+                    .transition().duration(200)
+                    .attr("d", arc.outerRadius(radius - 10));
+                });
+
+            g.append("path")
+                .attr("d", arc)
+                .style("fill", d => color(d.index))
+                .transition()
+                .ease(d3.easeBounce)
+                .duration(1000)
+                .attrTween("d", tweenPie);
+
+            g.append("text")
+                .attr("transform", d => `translate(${arc.centroid(d)})`)
+                .attr("dy", ".35em")
+                .style("text-anchor", "middle")
+                .text((d, i) => data[i] + "%");
+
+            function tweenPie(b) {
+                b.innerRadius = 0;
+                const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
+                return t => arc(i(t));
+            }
+        </script>
+    </body>
+</html>

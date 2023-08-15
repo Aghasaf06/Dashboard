@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class EmployeeController {
@@ -64,4 +66,14 @@ public class EmployeeController {
         return new ModelAndView("employeeTable", "employee", employeeList);
     }
 
+    @GetMapping(path = "/dashboard")
+    public ModelAndView dashboard() {
+        Map<String, Object> modelGender = new HashMap<>();
+        int[] gender = employeeService.getGenderStats();
+        modelGender.put("Male", gender[0]);
+        modelGender.put("Female", gender[1]);
+        modelGender.put("Other", gender[2]);
+        System.out.println(gender[0] + " " + gender[1] + " " + gender[2]);
+        return new ModelAndView("chart", modelGender);
+    }
 }
