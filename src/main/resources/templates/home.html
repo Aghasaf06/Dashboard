@@ -22,3 +22,18 @@
         <img id="logo" src="/images/AtmosLogo.png" alt="Atmos Logo">
     </body>
 </html>
+
+
+
+@GetMapping("/updateEmployee/{id}")
+public ModelAndView updateBook(@PathVariable("id") int id) {
+Employee employee = employeeService.findById(id);
+employeeService.deleteById(id);
+return new ModelAndView("updateEmployee", "employee", employee);
+}
+
+@PostMapping("/update")
+public String update(@ModelAttribute Employee employee) {
+employeeService.saveEmployee(employee);
+return "update";
+}

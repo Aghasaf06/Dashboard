@@ -284,6 +284,12 @@
                 cursor: pointer;
                 border-radius: 10px;
                 }
+
+            #delete, #buy {
+                width: 20px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
         </style>
     </head>
     <body>
@@ -512,7 +518,6 @@
                 </thead>
                 <tbody>
                     <tr th:each="b :${employee}">
-                        <td><script> var i = 1; document.getElementById("demo").innerHTML = i++;</script></td>
                         <td th:text="${b.name}"></td>
                         <td th:text="${b.surname}"></td>
                         <td th:text="${b.email}"></td>
@@ -521,6 +526,10 @@
                         <td th:text="${b.university}"></td>
                         <td th:text="${b.department}"></td>
                         <td th:text="${b.country}"></td>
+                        <td>
+                            <a th:href="@{/updateEmployee/{id}(id=${b.id})}"><img id="edit" src="/images/edit.png" alt="edit button"></a>
+                            <a th:href="@{/deleteEmployee/{id}(id=${b.id})}"><img id="delete" src="/images/delete.png" alt="delete button"></a>
+                        </td>
                     </tr>
                 </tbody>
             </table>

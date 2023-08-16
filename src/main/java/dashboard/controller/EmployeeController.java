@@ -4,10 +4,7 @@ import dashboard.entity.Employee;
 import dashboard.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.HashMap;
@@ -40,6 +37,28 @@ public class EmployeeController {
     public ModelAndView employeeTable() {
         List<Employee> employeeList = employeeService.findAllEmployee();
         return new ModelAndView("employeeTable", "employee", employeeList);
+    }
+
+    @GetMapping(path = "/updateEmployee/{id}")
+    public ModelAndView updateEmployee(@PathVariable("id") int id) {
+        employeeService.setUpdateEmployeeId(id);
+        Employee employee = employeeService.findById(id);
+        return new ModelAndView("updateEmployee", "employee", employee);
+    }
+
+    @PostMapping(path = "/update")
+    public String update(@ModelAttribute Employee employee) {
+        System.out.println(employeeService.getUpdateEmployeeId());
+        System.out.println(employee.getAge());
+        System.out.println(employeeService.findById(employeeService.getUpdateEmployeeId()).getName());
+        employeeService.updateEmployee(employeeService.getUpdateEmployeeId(), employee);
+        return "update";
+    }
+
+    @GetMapping(path = "/deleteEmployee/{id}")
+    public String deleteEmployee(@PathVariable("id") int id) {
+        employeeService.deleteById(id);
+        return "redirect:/employeeTable";
     }
 
     @PostMapping(path = "/filterTable")

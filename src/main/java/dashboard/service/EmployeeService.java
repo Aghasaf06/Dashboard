@@ -20,8 +20,20 @@ public class EmployeeService {
         employeeRepository.save(employee);
     }
 
+    public void updateEmployee(int id, Employee employee) {
+        employeeRepository.updateEmployee(id, employee.getName(), employee.getSurname(), employee.getEmail(), employee.getGender(), employee.getAge(), employee.getUniversity(), employee.getDepartment(), employee.getCountry());
+    }
+
     public List<Employee> findAllEmployee() {
         return employeeRepository.findAll();
+    }
+
+    public Employee findById(int id) {
+        return employeeRepository.findById(id).get();
+    }
+
+    public void deleteById(int id) {
+        employeeRepository.deleteById(id);
     }
 
     @Getter
@@ -67,4 +79,8 @@ public class EmployeeService {
 
         return new int[]{male, female, other};
     }
+
+    @Getter
+    @Setter
+    int updateEmployeeId;
 }

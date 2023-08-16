@@ -6,65 +6,242 @@
         <title>Combined Pie Chart Example</title>
         <script src="https://d3js.org/d3.v5.min.js"></script>
         <style>
-            svg {
-                width: 100%;
-                height: auto;
-            }
+        svg {
+            width: 100%;
+            height: auto;
+        }
         </style>
+        <!-- Favicon -->
+        <link href="img/favicon.ico" rel="icon">
+
+        <!-- Google Web Fonts -->
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet"> 
+
+        <!-- Font Awesome -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+
+        <!-- Libraries Stylesheet -->
+        <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+        <link href="lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+        <!-- Customized Bootstrap Stylesheet -->
+        <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
         <svg id="pieChart"></svg>
         <script>
-            const male = [[${Male}]];
-            const female = [[${Female}]];
-            const other = [[${Other}]]
-            const data = [male, female, other]; // Oranlar yüzde cinsinden
-            const width = 300;
-            const height = 300;
-            const radius = Math.min(width, height) / 2;
-            const color = d3.scaleOrdinal(d3.schemeCategory10);
-            const pie = d3.pie().value(d => d);
-            const arc = d3.arc().outerRadius(radius - 10).innerRadius(0);
-            const svg = d3.select("#pieChart")
-                .attr("width", width)
-                .attr("height", height)
-                .append("g")
-                .attr("transform", `translate(${width / 2},${height / 2})`);
+        const data = [25, 15, 20, 10, 30]; // Oranlar yüzde cinsinden
 
-            const g = svg.selectAll(".arc")
-                .data(pie(data))
-                .enter().append("g")
-                .attr("class", "arc")
-                .on("mouseover", function(d) {
-                d3.select(this).select("path")
-                    .transition().duration(200)
-                    .attr("d", arc.outerRadius(radius));
-                })
-                .on("mouseout", function(d) {
-                d3.select(this).select("path")
-                    .transition().duration(200)
-                    .attr("d", arc.outerRadius(radius - 10));
+        const width = 300;
+        const height = 300;
+        const radius = Math.min(width, height) / 2;
+
+        const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+        const pie = d3.pie().value(d => d);
+
+        const arc = d3.arc().outerRadius(radius - 10).innerRadius(0);
+
+        const svg = d3.select("#pieChart")
+            .attr("width", width)
+            .attr("height", height)
+            .append("g")
+            .attr("transform", `translate(${width / 2},${height / 2})`);
+
+        const g = svg.selectAll(".arc")
+            .data(pie(data))
+            .enter().append("g")
+            .attr("class", "arc")
+            .on("mouseover", function(d) {
+            d3.select(this).select("path")
+                .transition().duration(200)
+                .attr("d", arc.outerRadius(radius));
+            })
+            .on("mouseout", function(d) {
+            d3.select(this).select("path")
+                .transition().duration(200)
+                .attr("d", arc.outerRadius(radius - 10));
+            });
+
+        g.append("path")
+            .attr("d", arc)
+            .style("fill", d => color(d.index))
+            .transition()
+            .ease(d3.easeBounce)
+            .duration(1000)
+            .attrTween("d", tweenPie);
+
+        g.append("text")
+            .attr("transform", d => `translate(${arc.centroid(d)})`)
+            .attr("dy", ".35em")
+            .style("text-anchor", "middle")
+            .text((d, i) => data[i] + "%");
+
+        function tweenPie(b) {
+            b.innerRadius = 0;
+            const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
+            return t => arc(i(t));
+        }
+        </script>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="container-fluid py-5" id="skill">
+            <div class="container">
+                <div class="position-relative d-flex align-items-center justify-content-center">
+                    <h1 class="display-1 text-uppercase text-white" style="-webkit-text-stroke: 1px #dee2e6;">Skills</h1>
+                    <h1 class="position-absolute text-uppercase text-primary">My Skills</h1>
+                </div>
+                <div class="row align-items-center">
+                    <div class="col-md-6">
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[1] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[1] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="10" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[2] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[2] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[3] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[3] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[4] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[4] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-primary" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[5] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[5] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-dark" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[6] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[6] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[7] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[7] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-warning" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                        <div class="skill mb-4">
+                            <div class="d-flex justify-content-between">
+                                <h6 class="font-weight-bold"><?php echo $sn[8] ?></h6>
+                                <h6 class="font-weight-bold"><?php echo $p[8] ?>%</h6>
+                            </div>
+                            <div class="progress">
+                                <div class="progress-bar bg-danger" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <script src="lib/typed/typed.min.js"></script>
+        <script src="lib/easing/easing.min.js"></script>
+        <script src="lib/waypoints/waypoints.min.js"></script>
+        <script src="lib/owlcarousel/owl.carousel.min.js"></script>
+        <script src="lib/isotope/isotope.pkgd.min.js"></script>
+        <script src="lib/lightbox/js/lightbox.min.js"></script>
+
+
+
+
+        <script src="mail/jqBootstrapValidation.min.js"></script>
+        <script src="mail/contact.js"></script>
+
+        <!-- Template Javascript -->
+        <script src="js/main.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+        <script>
+        (function() {
+                emailjs.init('3TdgcyeKBD74y_1FL');
+            })();
+        </script>
+        <script>
+            const name = document.querySelector("#name")
+            const email = document.querySelector("#email")
+            const subject = document.querySelector("#subject")
+            const message = document.querySelector("#message")
+            const admin = document.querySelector("#admin")
+            admin.style.display = "none"
+            
+            const contactForm = document.querySelector("#contactForm")
+            contactForm.addEventListener('submit', (e) => {
+                console.log(name.value);
+                e.preventDefault();
+                if(name.value && email.value && subject.value && message.value){
+                emailjs.sendForm('service_0lxo0u2', 'template_gdx41xq', contactForm)
+                .then((result) => {
+                    console.log(result.text);
+                }, (error) => {
+                    console.log(error.text);
                 });
-
-            g.append("path")
-                .attr("d", arc)
-                .style("fill", d => color(d.index))
-                .transition()
-                .ease(d3.easeBounce)
-                .duration(1000)
-                .attrTween("d", tweenPie);
-
-            g.append("text")
-                .attr("transform", d => `translate(${arc.centroid(d)})`)
-                .attr("dy", ".35em")
-                .style("text-anchor", "middle")
-                .text((d, i) => data[i] + "%");
-
-            function tweenPie(b) {
-                b.innerRadius = 0;
-                const i = d3.interpolate({ startAngle: 0, endAngle: 0 }, b);
-                return t => arc(i(t));
-            }
+                }
+            });
         </script>
     </body>
 </html>
