@@ -517,18 +517,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="b :${employee}">
-                        <td th:text="${b.name}"></td>
-                        <td th:text="${b.surname}"></td>
-                        <td th:text="${b.email}"></td>
-                        <td th:text="${b.gender}"></td>
-                        <td th:text="${b.age}"></td>
-                        <td th:text="${b.university}"></td>
-                        <td th:text="${b.department}"></td>
-                        <td th:text="${b.country}"></td>
+                    <tr th:each="e :${employee}">
+                        <td th:text="${e.name}"></td>
+                        <td th:text="${e.surname}"></td>
+                        <td th:text="${e.email}"></td>
+                        <td th:text="${e.gender}"></td>
+                        <td th:text="${e.age}"></td>
+                        <td th:text="${e.university}"></td>
+                        <td th:text="${e.department}"></td>
+                        <td th:text="${e.country}"></td>
                         <td>
-                            <a th:href="@{/updateEmployee/{id}(id=${b.id})}"><img id="edit" src="/images/edit.png" alt="edit button"></a>
-                            <a th:href="@{/deleteEmployee/{id}(id=${b.id})}"><img id="delete" src="/images/delete.png" alt="delete button"></a>
+                            <a th:href="@{/updateEmployee/{id}(id=${e.id})}"><img id="edit" src="/images/edit.png" alt="edit button"></a>
+                            <a th:href="@{/deleteEmployee/{id}(id=${e.id})}"><img id="delete" src="/images/delete.png" alt="delete button"></a>
                         </td>
                     </tr>
                 </tbody>

@@ -26,5 +26,6 @@ public interface IEmployeeRepository extends JpaRepository<Employee, Integer> {
     List<Employee> findByEmailContains(String email);
     List<Employee> findByAge(int age);
     List<Employee> findByGender(String gender);
-
+    List<Employee> findByDepartment(String department);
+    List<Employee> findByCountry(String country);
 }

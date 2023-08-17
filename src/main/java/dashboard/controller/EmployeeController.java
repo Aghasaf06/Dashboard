@@ -7,6 +7,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,12 +89,24 @@ public class EmployeeController {
 
     @GetMapping(path = "/dashboard")
     public ModelAndView dashboard() {
-        Map<String, Object> modelGender = new HashMap<>();
+        //Gender stats
+        Map<String, Integer> modelGender = new HashMap<>();
         int[] gender = employeeService.getGenderStats();
-        modelGender.put("Male", gender[0]);
-        modelGender.put("Female", gender[1]);
-        modelGender.put("Other", gender[2]);
-        System.out.println(gender[0] + " " + gender[1] + " " + gender[2]);
+        modelGender.put("male", gender[0]);
+        modelGender.put("female", gender[1]);
+        modelGender.put("other", gender[2]);
+
+        //Department stats
+        Map<String, Double> modelDepartment = new HashMap<>();
+        double[] department = employeeService.getDepartmentStats();
+
+        //Country stats
+        Map<String, Double> modelCountry = new HashMap<>();
+        double[] country = employeeService.getCountryStats();
+
+        System.out.println(Arrays.toString(gender));
+        System.out.println(Arrays.toString(department));
+        System.out.println(Arrays.toString(country));
         return new ModelAndView("chart", modelGender);
     }
 }
