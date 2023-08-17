@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="https://www.thymeleaf.com">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>ATMOS Company</title>
     <link th:href="@{/css/navbar.css}" rel="stylesheet" />
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <style>
-      svg {
-        width: 100%;
-        height: auto;
+      .divclass {
+        display: flex;
+        align-items: center;
+        gap: 50px;
+        justify-content: flex-start;
+      }
+
+      .pie {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
       }
     </style>
   </head>
@@ -17,22 +25,80 @@
     <!-----------------------------------------------Navbar----------------------------------------------------------------------------->
     <header class="header">
       <h1 class="logo"><a href="home">ATMOS Company</a></h1>
-      <img src="/images/AtmosLogo.png" alt="Atmos Logo">
+      <img src="/images/AtmosLogo.png" alt="Atmos Logo" />
       <ul class="main-nav">
-          <li><a href="home">Ana Səhifə</a></li>
-          <li><a href="dashboard">İdarə Paneli</a></li>
-          <li><a href="employeeTable">İşçi Cədvəli</a></li>
-          <li><a href="employeeRegister">İşçi Qeydiyyatı</a></li>
+        <li><a href="home">Ana Səhifə</a></li>
+        <li><a href="dashboard">İdarə Paneli</a></li>
+        <li><a href="employeeTable">İşçi Cədvəli</a></li>
+        <li><a href="employeeRegister">İşçi Qeydiyyatı</a></li>
       </ul>
     </header>
     <!------------------------------------------------Main----------------------------------------------------------------------------->
-    <svg id="pieChart"></svg>
+    <div class="pie">
+      <div class="divclass">
+        <svg id="pieChart1"></svg>
+        <ul id="list1"></ul>
+      </div>
+      <div class="divclass">
+        <svg id="pieChart2"></svg>
+        <ul id="list2"></ul>
+      </div>
+      <div class="divclass">
+        <svg id="pieChart3"></svg>
+        <ul id="list3"></ul>
+      </div>
+    </div>
+
     <script>
+      /*List1*/
+      const list1 = document.querySelector("#list1");
       const male = [[${male}]];
       const female = [[${female}]];
       const other = [[${other}]];
-      const data = [male, female, other]; // Oranlar yüzde cinsinden
+      const data1 = [male, female, other]; // Oranlar yüzde cinsinden
+      const it1 = [{qt: male, desc: "Kişi"}, {qt: female, desc: "Qadın"}, {qt: other, desc: "Başqa"}]
+      it1.forEach(i => {
+        list1.innerHTML += `<li>${i.desc} - ${i.qt}</li>`
+      })
 
+
+      /*List2*/
+      const list2 = document.querySelector("#list2");
+      const acc = [[${acc}]];
+      const bd= [[${bd}]];
+      const eng = [[${eng}]];
+      const hr = [[${hr}]];
+      const leg= [[${leg}]];
+      const mark = [[${mark}]];
+      const pm = [[${pm}]];
+      const rd= [[${rd}]];
+      const sales = [[${sales}]];
+      const services = [[${services}]];
+      const support= [[${support}]];
+      const tr = [[${tr}]];
+      const data2 = [acc, bd, eng, hr, leg, mark, pm, rd, sales, services, support, tr]; // Oranlar yüzde cinsinden
+      const it2 = [{qt: acc, desc: "Accounting"}, {qt: bd, desc: "Business Development"}, {qt: eng, desc: "Engineering"}, {qt: hr, desc: "Human Resources"}, {qt: leg, desc: "Legal"}, {qt: mark, desc: "Marketing"}, {qt: pm, desc: "Product Management"}, {qt: rd, desc: "Research and Development"}, {qt: sales, desc: "Sales"}, {qt: services, desc: "Services"}, {qt: support, desc: "Support"}, {qt: tr, desc: "Training"}]
+      it2.forEach(i => {
+        list2.innerHTML += `<li>${i.desc} - ${i.qt}</li>`
+      })
+
+      /*List3*/
+      const List3 = document.querySelector("#list2");
+      const aze = [[${aze}]];
+      const geo= [[${geo}]];
+      const irn = [[${irn}]];
+      const kaz = [[${kaz}]];
+      const kgz= [[${kgz}]];
+      const rus = [[${rus}]];
+      const tur = [[${tur}]];
+      const ukr= [[${ukr}]];
+      const uzb = [[${uzb}]];
+      const data3 = [aze, geo, irn, kaz, kgz, rus, tur, ukr, uzb]; // Oranlar yüzde cinsinden
+      const it3 = [{qt: aze, desc: "Azerbaijan"}, {qt: geo, desc: "Georgia"}, {qt: irn, desc: "Iran"}, {qt: kaz, desc: "Kazakhstan"}, {qt: kgz, desc: "Kyrgyzstan"}, {qt: rus, desc: "Russia"}, {qt: tur, desc: "Turkmenistan"}, {qt: ukr, desc: "Ukraine"}, {qt: uzb, desc: "Uzbekistan"}]
+      it3.forEach(i => {
+        list3.innerHTML += `<li>${i.desc} - ${i.qt}</li>`
+      })
+      
       const width = 300;
       const height = 300;
       const radius = Math.min(width, height) / 2;
@@ -43,26 +109,32 @@
 
       const arc = d3.arc().outerRadius(radius - 10).innerRadius(0);
 
-      const svg = d3.select("#pieChart")
-        .attr("width", width)
-        .attr("height", height)
-        .append("g")
-        .attr("transform", `translate(${width / 2},${height / 2})`);
+      function pieChart (id, data) {
+        const svg = d3.select(`#${id}`)
+          .attr("width", width)
+          .attr("height", height)
+          .append("g")
+          .attr("transform", `translate(${width / 2},${height / 2})`);
 
-      const g = svg.selectAll(".arc")
-        .data(pie(data))
-        .enter().append("g")
-        .attr("class", "arc");
+        const g = svg.selectAll(".arc")
+          .data(pie(data))
+          .enter().append("g")
+          .attr("class", "arc");
 
-      g.append("path")
-        .attr("d", arc)
-        .style("fill", d => color(d.index));
+        g.append("path")
+          .attr("d", arc)
+          .style("fill", d => color(d.index));
 
-      g.append("text")
-        .attr("transform", d => `translate(${arc.centroid(d)})`)
-        .attr("dy", ".35em")
-        .style("text-anchor", "middle")
-        .text((d, i) => data[i] + "%");
+        g.append("text")
+          .attr("transform", d => `translate(${arc.centroid(d)})`)
+          .attr("dy", ".35em")
+          .style("text-anchor", "middle")
+          //.text((d, i) => data[i] + "%");
+      }
+
+      pieChart("pieChart1", data1);
+      pieChart("pieChart2", data2);
+      pieChart("pieChart3", data3);
     </script>
   </body>
 </html>
