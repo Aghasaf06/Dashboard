@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -67,23 +68,24 @@ public class EmployeeService {
         }
     }
 
-    public int percentageGender(int column, int all) {
-        return column * 100 / all;
-    }
+//    public int percentageGender(int column, int all) {
+//        return column * 100 / all;
+//    }
 
-    public double percentageDepartmentOrCountry(int column, int all) {
+    public double percentage(int column, int all) {
         return Math.round(((double) (column * 100) / all) * 100.0) / 100.0;
     }
 
-    public int[] getGenderStats() {
-        int male, female, other, all;
+    public double[] getGenderStats() {
+        int all;
+        double male, female, other;
 
         all = employeeRepository.findAll().size();
-        male = percentageGender(employeeRepository.findByGender("Male").size(), all);
-        female = percentageGender(employeeRepository.findByGender("Female").size(), all);
+        male = percentage(employeeRepository.findByGender("Male").size(), all);
+        female = percentage(employeeRepository.findByGender("Female").size(), all);
         other = 100 - male - female;
 
-        return new int[] {male, female, other};
+        return new double[] {male, female, other};
     }
 
     public double[] getDepartmentStats() {
@@ -91,17 +93,17 @@ public class EmployeeService {
         double acc, bd, eng, hr, leg, mark, pm, rd, sales, services, support, tr;
 
         all = employeeRepository.findAll().size();
-        acc = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Accounting").size(), all);
-        bd = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Business Development").size(), all);
-        eng = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Engineering").size(), all);
-        hr = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Human Resources").size(), all);
-        leg = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Legal").size(), all);
-        mark = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Marketing").size(), all);
-        pm = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Product Management").size(), all);
-        rd = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Research and Development").size(), all);
-        sales = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Sales").size(), all);
-        services = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Services").size(), all);
-        support = percentageDepartmentOrCountry(employeeRepository.findByDepartment("Support").size(), all);
+        acc = percentage(employeeRepository.findByDepartment("Accounting").size(), all);
+        bd = percentage(employeeRepository.findByDepartment("Business Development").size(), all);
+        eng = percentage(employeeRepository.findByDepartment("Engineering").size(), all);
+        hr = percentage(employeeRepository.findByDepartment("Human Resources").size(), all);
+        leg = percentage(employeeRepository.findByDepartment("Legal").size(), all);
+        mark = percentage(employeeRepository.findByDepartment("Marketing").size(), all);
+        pm = percentage(employeeRepository.findByDepartment("Product Management").size(), all);
+        rd = percentage(employeeRepository.findByDepartment("Research and Development").size(), all);
+        sales = percentage(employeeRepository.findByDepartment("Sales").size(), all);
+        services = percentage(employeeRepository.findByDepartment("Services").size(), all);
+        support = percentage(employeeRepository.findByDepartment("Support").size(), all);
         tr = Math.round((100 - acc - bd - eng - hr - leg - mark - pm - rd - sales - services - support) * 100.0) / 100.0;
 
         return new double[] {acc, bd, eng, hr, leg, mark, pm, rd, sales, services, support, tr};
@@ -112,15 +114,15 @@ public class EmployeeService {
         double aze, geo, irn, kaz, kgz, rus, tur, ukr, uzb;
 
         all = employeeRepository.findAll().size();
-        aze = percentageDepartmentOrCountry(employeeRepository.findByCountry("Azerbaijan").size(), all);
-        geo = percentageDepartmentOrCountry(employeeRepository.findByCountry("Georgia").size(), all);
-        irn = percentageDepartmentOrCountry(employeeRepository.findByCountry("Iran").size(), all);
-        kaz = percentageDepartmentOrCountry(employeeRepository.findByCountry("Kazakhstan").size(), all);
-        kgz = percentageDepartmentOrCountry(employeeRepository.findByCountry("Kyrgyzstan").size(), all);
-        rus = percentageDepartmentOrCountry(employeeRepository.findByCountry("Russia").size(), all);
-        tur = percentageDepartmentOrCountry(employeeRepository.findByCountry("Turkmenistan").size(), all);
-        ukr = percentageDepartmentOrCountry(employeeRepository.findByCountry("Ukraine").size(), all);
-        uzb = percentageDepartmentOrCountry(employeeRepository.findByCountry("Uzbekistan").size(), all);
+        aze = percentage(employeeRepository.findByCountry("Azerbaijan").size(), all);
+        geo = percentage(employeeRepository.findByCountry("Georgia").size(), all);
+        irn = percentage(employeeRepository.findByCountry("Iran").size(), all);
+        kaz = percentage(employeeRepository.findByCountry("Kazakhstan").size(), all);
+        kgz = percentage(employeeRepository.findByCountry("Kyrgyzstan").size(), all);
+        rus = percentage(employeeRepository.findByCountry("Russia").size(), all);
+        tur = percentage(employeeRepository.findByCountry("Turkmenistan").size(), all);
+        ukr = percentage(employeeRepository.findByCountry("Ukraine").size(), all);
+        uzb = percentage(employeeRepository.findByCountry("Uzbekistan").size(), all);
 
         return new double[] {aze, geo, irn, kaz, kgz, rus, tur, ukr, uzb};
     }

@@ -4,13 +4,13 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>ATMOS Company</title>
-
+        <link th:href="@{/css/navbar.css}" rel="stylesheet" />
         <style>
-            body {
-                margin: 0;
-                background: linear-gradient(45deg, #a6f099, #17b324);
-                font-family: sans-serif;
-                font-weight: 100;
+            .submission {
+                margin-top: 30px;
+                margin-bottom: 30px;
+                text-align: center;
+                color: #a50f0f;
             }
 
             #logo {
@@ -21,110 +21,6 @@
                 border: 10px solid #000;
                 border-radius: 10px;
             }
-
-            .submission {
-                margin-top: 30px;
-                margin-bottom: 50px;
-                text-align: center;
-                color: #a50f0f;
-            }
-
-            * {
-                box-sizing: border-box;
-            }
-
-            body {
-                line-height: 1.6;
-                margin: 0;
-                min-height: 100vh;
-            }
-
-            ul {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            }
-
-            a {
-                text-decoration: none;
-            }
-
-            .logo {
-                margin: 0;
-                font-size: 1.45em;
-                color: #704916;
-            }
-
-            .main-nav {
-                margin-top: 5px;
-
-            }
-            
-            .logo a,
-            .main-nav a {
-                padding: 10px 15px;
-                color: #a50f0f;
-                text-align: center;
-                display: block;
-            }
-
-            .main-nav a {
-                color: #a50f0f;
-                font-size: 22px;
-                font-weight: bold;
-            }
-
-            .logo a:hover {
-                color: #196115;
-            }
-
-            .main-nav a:hover {
-                color: #196115;
-            }
-
-            img {
-                width: 50px;
-                margin-right: auto;
-            }
-
-            .header {
-                padding-top: .5em;
-                padding-bottom: .5em;
-                border: 1px solid #fff;
-                background-color: #fff;
-                -webkit-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-                -moz-box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-                box-shadow: 0px 0px 14px 0px rgba(0,0,0,0.75);
-                -webkit-border-radius: 5px;
-                -moz-border-radius: 5px;
-                border-radius: 5px;
-            }
-
-            @media (min-width: 769px) {
-                .header,
-                .main-nav {
-                    display: flex;
-                }
-
-                .header {
-                    flex-direction: column;
-                    align-items: center;
-                    .header{
-                    width: 80%;
-                    margin: 0 auto;
-                    max-width: 1150px;
-                }
-                }
-
-            }
-
-            @media (min-width: 1025px) {
-                .header {
-                    flex-direction: row;
-                    justify-content: space-between;
-                }
-
-            }
         </style>
     </head>
     <body>
@@ -134,7 +30,7 @@
             <img src="/images/AtmosLogo.png" alt="Atmos Logo">
             <ul class="main-nav">
                 <li><a href="home">Ana Səhifə</a></li>
-                <li><a href="available_books">Əlçatan Kitablar</a></li>
+                <li><a href="dashboard">İdarə Paneli</a></li>
                 <li><a href="employeeTable">İşçi Cədvəli</a></li>
                 <li><a href="employeeRegister">İşçi Qeydiyyatı</a></li>
             </ul>

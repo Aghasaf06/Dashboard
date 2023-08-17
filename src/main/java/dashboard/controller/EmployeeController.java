@@ -7,8 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.lang.reflect.Array;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -50,9 +48,9 @@ public class EmployeeController {
 
     @PostMapping(path = "/update")
     public String update(@ModelAttribute Employee employee) {
-        System.out.println(employeeService.getUpdateEmployeeId());
-        System.out.println(employee.getAge());
-        System.out.println(employeeService.findById(employeeService.getUpdateEmployeeId()).getName());
+//        System.out.println(employeeService.getUpdateEmployeeId());
+//        System.out.println(employee.getAge());
+//        System.out.println(employeeService.findById(employeeService.getUpdateEmployeeId()).getName());
         employeeService.updateEmployee(employeeService.getUpdateEmployeeId(), employee);
         return "update";
     }
@@ -89,24 +87,42 @@ public class EmployeeController {
 
     @GetMapping(path = "/dashboard")
     public ModelAndView dashboard() {
+        Map<String, Double> modelStats = new HashMap<>();
+
         //Gender stats
-        Map<String, Integer> modelGender = new HashMap<>();
-        int[] gender = employeeService.getGenderStats();
-        modelGender.put("male", gender[0]);
-        modelGender.put("female", gender[1]);
-        modelGender.put("other", gender[2]);
+        double[] gender = employeeService.getGenderStats();
+        modelStats.put("male", gender[0]);
+        modelStats.put("female", gender[1]);
+        modelStats.put("other", gender[2]);
 
         //Department stats
-        Map<String, Double> modelDepartment = new HashMap<>();
         double[] department = employeeService.getDepartmentStats();
+        modelStats.put("acc", department[0]);
+        modelStats.put("bd", department[1]);
+        modelStats.put("eng", department[2]);
+        modelStats.put("hr", department[3]);
+        modelStats.put("leg", department[4]);
+        modelStats.put("mark", department[5]);
+        modelStats.put("pm", department[6]);
+        modelStats.put("rd", department[7]);
+        modelStats.put("sales", department[8]);
+        modelStats.put("services", department[9]);
+        modelStats.put("support", department[10]);
+        modelStats.put("tr", department[11]);
 
         //Country stats
-        Map<String, Double> modelCountry = new HashMap<>();
         double[] country = employeeService.getCountryStats();
+        modelStats.put("aze", country[0]);
+        modelStats.put("geo", country[1]);
+        modelStats.put("irn", country[2]);
+        modelStats.put("kaz", country[3]);
+        modelStats.put("kgz", country[4]);
+        modelStats.put("rus", country[5]);
+        modelStats.put("tur", country[6]);
+        modelStats.put("ukr", country[7]);
+        modelStats.put("uzb", country[8]);
 
-        System.out.println(Arrays.toString(gender));
-        System.out.println(Arrays.toString(department));
-        System.out.println(Arrays.toString(country));
-        return new ModelAndView("chart", modelGender);
+        System.out.println(modelStats);
+        return new ModelAndView("chart", modelStats);
     }
 }
