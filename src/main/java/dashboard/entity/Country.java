@@ -6,25 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "gender")
+@Table(name = "country")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Gender {
+public class Country {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 
-    @Column(name = "gender", unique = true)
-    private String gender;
+    @Column(name = "country")
+    private String country;
 
-    @Column(name = "percentage", unique = true)
+    @Column(name = "percentage")
     private double percentage;
 
-    public Gender(String gender, double percentage) {
-        this.gender = gender;
+    public Country(String country, double percentage) {
+        this.country = country;
         this.percentage = percentage;
     }
 }
