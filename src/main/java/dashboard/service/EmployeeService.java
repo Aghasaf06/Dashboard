@@ -1,15 +1,15 @@
 package dashboard.service;
 
 import dashboard.entity.Employee;
+import dashboard.entity.Gender;
 import dashboard.repository.IEmployeeRepository;
+import dashboard.repository.IGenderRepository;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
@@ -17,6 +17,9 @@ public class EmployeeService {
 
     @Autowired
     private IEmployeeRepository employeeRepository;
+
+    @Autowired
+    private IGenderRepository genderRepository;
 
     public void saveEmployee(Employee employee) {
         employeeRepository.save(employee);
@@ -68,22 +71,27 @@ public class EmployeeService {
         }
     }
 
-//    public int percentageGender(int column, int all) {
-//        return column * 100 / all;
-//    }
+    public double percentageAndEntity(int id, String genderTitle, int column, int all) {
+        double percentage = Math.round(((double) (column * 100) / all) * 100.0) / 100.0;
+        Gender gender = new Gender(id, genderTitle, percentage);
+        genderRepository.save(gender);
+        return percentage;
+    }
 
     public double percentage(int column, int all) {
         return Math.round(((double) (column * 100) / all) * 100.0) / 100.0;
     }
 
     public double[] getGenderStats() {
-        int all;
+        int all, id = 1;
         double male, female, other;
 
+        genderRepository.deleteAll();
         all = employeeRepository.findAll().size();
-        male = percentage(employeeRepository.findByGender("Male").size(), all);
-        female = percentage(employeeRepository.findByGender("Female").size(), all);
-        other = 100 - male - female;
+
+        male = percentageAndEntity(id++, "Male", employeeRepository.findByGender("Male").size(), all);
+        female = percentageAndEntity(id++, "Female", employeeRepository.findByGender("Female").size(), all);
+        other = percentageAndEntity(id++, "Other", (int) (all - male - female), all);
 
         return new double[] {male, female, other};
     }

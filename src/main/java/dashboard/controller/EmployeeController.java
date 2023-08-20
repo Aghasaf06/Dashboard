@@ -48,9 +48,6 @@ public class EmployeeController {
 
     @PostMapping(path = "/update")
     public String update(@ModelAttribute Employee employee) {
-//        System.out.println(employeeService.getUpdateEmployeeId());
-//        System.out.println(employee.getAge());
-//        System.out.println(employeeService.findById(employeeService.getUpdateEmployeeId()).getName());
         employeeService.updateEmployee(employeeService.getUpdateEmployeeId(), employee);
         return "update";
     }
